@@ -1,0 +1,193 @@
+/* General Styles */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+/* Background Video */
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+}
+
+
+/* Dark Overlay for Readability */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark overlay */
+    z-index: -1;
+}
+
+
+/* Container Styling - Glassmorphism Effect */
+
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background: rgba(30, 30, 30, 0.8);
+    /* Semi-transparent dark background */
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+    /* Glass effect */
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+/* Headings - Smooth Effects */
+
+h1,
+h2 {
+    color: #ffcc00;
+    transition: transform 0.3s ease-in-out, color 0.3s ease;
+}
+
+h1:hover,
+h2:hover {
+    transform: scale(1.1);
+    color: #ffaa00;
+    text-shadow: 0px 0px 10px rgba(255, 170, 0, 0.8);
+}
+
+
+/* Buttons - 3D Effect */
+
+button,
+.btn {
+    background: linear-gradient(45deg, #ffcc00, #ffaa00);
+    color: #121212;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+    /* Added for spacing between buttons */
+}
+
+button:hover,
+.btn:hover {
+    background: linear-gradient(45deg, #ffaa00, #ff8800);
+    transform: scale(1.1);
+    box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.5);
+}
+
+
+/* Form Styling */
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+input,
+select {
+    width: 85%;
+    padding: 12px;
+    margin: 10px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: rgba(42, 42, 42, 0.8);
+    color: white;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border: 2px solid #ffcc00;
+    box-shadow: 0px 0px 8px #ffcc00;
+}
+
+
+/* Table Styling */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: rgba(42, 42, 42, 0.85);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th,
+td {
+    border: 1px solid #ffcc00;
+    padding: 14px;
+    text-align: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+th {
+    background: linear-gradient(45deg, #ffcc00, #ffaa00);
+    color: black;
+    font-weight: bold;
+}
+
+td:hover {
+    background: rgba(255, 170, 0, 0.6);
+    color: black;
+    font-weight: bold;
+}
+
+
+/* Links - Smooth Hover */
+
+a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: #ffaa00;
+    text-shadow: 0px 0px 5px rgba(255, 170, 0, 0.7);
+}
+
+
+/* Fade-in Animation */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
