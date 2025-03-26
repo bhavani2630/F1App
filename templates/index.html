@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - F1 App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', path='videos/videoplayback.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <header>
+        <h1>Welcome to the F1 App</h1>
+        <nav>
+            <ul>
+                {% if user %}
+                    <li><a href="/add_driver">Add Driver</a></li>
+                    <li><a href="/add_team">Add Team</a></li>
+                    <li><a href="/query_drivers">Query Drivers</a></li>
+                    <li><a href="/compare_drivers">Compare Drivers</a></li>
+                    <li><a href="/logout">Logout ({{ user }})</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/query_drivers">Query Drivers</a></li>
+                    <li><a href="/compare_drivers">Compare Drivers</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <p>Welcome to the F1 App! Please log in to manage drivers and teams, or explore driver stats.</p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Drivers - F1 App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', path='videos/videoplayback.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <header>
+        <h1>Compare Drivers</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if user %}
+                    <li><a href="/logout">Logout ({{ user }})</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Team</th>
+                    <th>Pole Positions</th>
+                    <th>Race Wins</th>
+                    <th>Points Scored</th>
+                    <th>World Titles</th>
+                    <th>Fastest Laps</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for driver in drivers %}
+                    <tr>
+                        <td>{{ driver.name }}</td>
+                        <td>{{ driver.age }}</td>
+                        <td>{{ driver.team }}</td>
+                        <td>{{ driver.pole_positions }}</td>
+                        <td>{{ driver.race_wins }}</td>
+                        <td>{{ driver.points_scored }}</td>
+                        <td>{{ driver.world_titles }}</td>
+                        <td>{{ driver.fastest_laps }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Select drivers to compare (feature to be implemented with JavaScript).</p>
+    </main>
+</body>
+</html>

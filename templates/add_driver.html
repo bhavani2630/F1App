@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Driver - F1 App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', path='videos/videoplayback.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <header>
+        <h1>Add a Driver</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/logout">Logout ({{ user }})</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="add-driver-form" method="POST" action="/add_driver">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <label for="team">Team:</label>
+            <input type="text" id="team" name="team" required>
+            <label for="pole_positions">Pole Positions:</label>
+            <input type="number" id="pole_positions" name="pole_positions" required>
+            <label for="race_wins">Race Wins:</label>
+            <input type="number" id="race_wins" name="race_wins" required>
+            <label for="points_scored">Points Scored:</label>
+            <input type="number" id="points_scored" name="points_scored" required>
+            <label for="world_titles">World Titles:</label>
+            <input type="number" id="world_titles" name="world_titles" required>
+            <label for="fastest_laps">Fastest Laps:</label>
+            <input type="number" id="fastest_laps" name="fastest_laps" required>
+            <button type="submit">Add Driver</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById("add-driver-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch("/add_driver", {
+                method: "POST",
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: { "Content-Type": "application/json" }
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (response.ok) window.location.href = "/";
+        });
+    </script>
+</body>
+</html>

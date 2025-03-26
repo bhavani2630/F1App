@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Team - F1 App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', path='videos/videoplayback.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <header>
+        <h1>Add a Team</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/logout">Logout ({{ user }})</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="add-team-form" method="POST" action="/add_team">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="year_founded">Year Founded:</label>
+            <input type="number" id="year_founded" name="year_founded" required>
+            <label for="pole_positions">Pole Positions:</label>
+            <input type="number" id="pole_positions" name="pole_positions" required>
+            <label for="race_wins">Race Wins:</label>
+            <input type="number" id="race_wins" name="race_wins" required>
+            <label for="constructor_titles">Constructor Titles:</label>
+            <input type="number" id="constructor_titles" name="constructor_titles" required>
+            <label for="last_season_finish">Last Season Finish:</label>
+            <input type="number" id="last_season_finish" name="last_season_finish" required>
+            <button type="submit">Add Team</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById("add-team-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch("/add_team", {
+                method: "POST",
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: { "Content-Type": "application/json" }
+            });
+            const result = await response.json();
+            alert(result.message);
+            if (response.ok) window.location.href = "/";
+        });
+    </script>
+</body>
+</html>

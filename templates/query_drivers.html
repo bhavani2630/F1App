@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Drivers</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', path='videos/videoplayback.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+
+    <header>
+        <h1>Drivers List</h1>
+        {% if user %}
+            <p>Logged in as: {{ user }} | <a href="/logout">Logout</a></p>
+        {% else %}
+            <p><a href="/login">Login</a> | <a href="/register">Register</a></p>
+        {% endif %}
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Team</th>
+                    <th>Pole Positions</th>
+                    <th>Race Wins</th>
+                    <th>Points Scored</th>
+                    <th>World Titles</th>
+                    <th>Fastest Laps</th>
+                    {% if user %}
+                        <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for driver in drivers %}
+                <tr>
+                    <td>{{ driver.name }}</td>
+                    <td>{{ driver.age }}</td>
+                    <td>{{ driver.team }}</td>
+                    <td>{{ driver.pole_positions }}</td>
+                    <td>{{ driver.race_wins }}</td>
+                    <td>{{ driver.points_scored }}</td>
+                    <td>{{ driver.world_titles }}</td>
+                    <td>{{ driver.fastest_laps }}</td>
+                    {% if user %}
+                    <td>
+                        <a href="/edit_driver/{{ driver.name }}">Edit</a>
+                        <form style="display:inline;" method="POST" action="/delete_driver/{{ driver.name }}" onsubmit="return confirm('Are you sure you want to delete {{ driver.name }}?');">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/">Back to Home</a>
+    </main>
+
+    <script>
+        // Handle delete confirmation via fetch if you prefer AJAX
+        document.querySelectorAll('form[action^="/delete_driver"]').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const driverName = form.action.split('/').pop();
+                if (confirm(`Are you sure you want to delete ${driverName}?`)) {
+                    try {
+                        const response = await fetch(`/delete_driver/${driverName}`, {
+                            method: 'POST'
+                        });
+                        const result = await response.json();
+                        if (response.ok) {
+                            alert(result.message);
+                            window.location.reload();
+                        } else {
+                            alert(result.detail);
+                        }
+                    } catch (error) {
+                        alert('An error occurred: ' + error.message);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
